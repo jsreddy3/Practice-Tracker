@@ -1,0 +1,105 @@
+#sidenav {
+  display: flex;
+  flex-direction: column;
+  border-right: solid;
+  border-right-color: black;
+  width: 20%;
+}
+
+#sidenav #logo {
+  text-align: center;
+}
+
+#sidenav #navButtons {
+  background-color: #F0EAD6;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding-top: 20%;
+  border-bottom: solid;
+  border-bottom-color: black;
+}
+
+#navButtons button {
+  margin-bottom: 30%;
+}
+
+#sidenav #learn {
+  text-align: center;
+  color: #337ab7;
+  border-bottom: solid;
+  border-bottom-color: black;
+  flex-grow: 1;
+}
+
+.buttonSelected {
+  border: solid;
+  border-color: red;
+}
+
+#navButtons #instrument {
+  margin-bottom: 20%;
+}
+
+#sidenav h1 {
+  background-color: white;
+}
+
+#log {
+  flex-grow: 1;
+}
+
+#log #createPractice {
+  display: flex;
+  flex-direction: column;
+  border: solid;
+  margin: 5%;
+}
+
+#log #createPractice * {
+  margin-left: 5%;
+  margin-right: 30%;
+}
+
+#log #addLog {
+  width: 10%;
+  font-size: 12px;
+  padding: 5px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+#log #prevPractices {
+  margin: 5%;
+  border: solid;
+}
+
+#log #prevPractices p {
+  margin-top: -10px;
+}
+
+#log #prevPractices * {
+  margin-left: 5%;
+}
+
+#practiceTitle {
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  display: flex;
+}
+
+button {
+    color: #fff;
+    background-color: #438289;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 12px 24px;
+    text-align: center;
+    width: 100%
+}

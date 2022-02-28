@@ -1,0 +1,13 @@
+.loggedPractice {
+  border: solid;
+  border-color: lightgray;
+  margin-right: 10%;
+  margin-bottom: 5%;
+}
+
+.loggedPractice button {
+  width: 10%;
+  font-size: 12px;
+  padding: 5px;
+  margin-bottom: 10px;
+}

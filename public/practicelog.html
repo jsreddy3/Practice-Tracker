@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Generic Social Media App</title>
+
+    <!-- These two lines provide automatic page and style reloading when files change -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/lib/client/updater.js" defer></script>
+
+    <!-- Include the Open Sans font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap">
+
+    <link rel="stylesheet" href="css/logPage.css">
+    <link rel="stylesheet" href="css/practice.css">
+
+    <script type="module" src="js/log.js"></script>
+  </head>
+  <body>
+    <section id="sidenav">
+      <div id="logo">
+        <h1>practiceTrack</h1>
+      </div>
+      <div id="navButtons">
+        <button id="dashboard">Dashboard</button>
+        <button id="practiceLog">Add Practice</button>
+        <button id="instrument">Instrument</button>
+      </div>
+      <div id="learn">
+        <h3>Learn</h3>
+      </div>
+    </section>
+    <main id="log">
+      <h1 id="practiceTitle">Practice Logger</h1>
+      <form id="createPractice">
+        <h3>Create Practice</h3>
+        <label for="day">Day:</label>
+        <input type="text" name="day" required>
+        <label for="from">From:</label>
+        <input type="text" name="from" required>
+        <label for="to">To:</label>
+        <input type="text" name="to" required>
+        <label for="location">Location:</label>
+        <input type="text" name="location" required>
+        <button type="submit" id="addLog">Add</button>
+      </form>
+      <section id="prevPractices">
+        <h2>Your Practice Summary</h2>
+        <p>Sorted By Time</p>
+      </section>
+    </main>
+
+  </body>
+</html>

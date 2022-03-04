@@ -27,7 +27,7 @@ export default class Practice {
 
     let inputFrom = this._from.split(" ");
     let inputTo = this._to.split(" ");
-    if (inputFrom[1] == "PM") {
+    if (inputFrom[1] == "PM" && inputFrom[0] != "12") {
       this._from = parseInt(inputFrom[0]) + 12;
     } else {
       this._from = parseInt(inputFrom[0]);
@@ -56,6 +56,6 @@ export default class Practice {
   }
 
   _stringToMonth(str) {
-    return new Date(Date.parse(str +" 1, 2022")).getMonth()+1;
+    return new Date(Date.parse(str +" 1, 2022")).getMonth();
   }
 }

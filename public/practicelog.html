@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Generic Social Media App</title>
+    <title>Practice Tracker</title>
 
     <!-- These two lines provide automatic page and style reloading when files change -->
     <script src="/socket.io/socket.io.js"></script>
@@ -47,8 +47,14 @@
       <section id="prevPractices">
         <h2>Your Practice Summary</h2>
         <p>Sorted By Time</p>
+        <div id="loggedPractices"></div>
       </section>
     </main>
 
+    <article class="template">
+      <h3 id="practiceDate">Template Date</h3>
+      <p id="practiceDuration">Template Duration</p>
+      <p id="practiceLocation">Template Location</p>
+    </article>
   </body>
 </html>

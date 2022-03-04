@@ -23,7 +23,7 @@ class Log {
       location: this._practiceForm.location.value
     }
     let newPractice = new Practice(practiceData);
-    let logSection = document.querySelector("#prevPractices");
+    let logSection = document.querySelector("#loggedPractices");
     newPractice.addToDom(logSection);
   }
 }

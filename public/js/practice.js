@@ -1,10 +1,15 @@
 export default class Practice {
   constructor(data) {
     this.user = data.user;
-    this.day = data.day;
-    this.timeFrom = data.from;
-    this.timeTo = data.to;
     this.location = data.location;
+    this.day = data.day;
+
+    this._from = data.from;
+    this._to = data.to;
+
+    this.fromDate = null;
+    this.toDate = null;
+    this._convertToDate();
   }
 
   addToDom(parent) {
@@ -12,22 +17,45 @@ export default class Practice {
     parent.append(item);
   }
 
+  _convertToDate(timeFrom, timeTo) {
+    let currDate = new Date();
+
+    let inputDate = this.day.split(" ");
+    let day = parseInt(inputDate[1]);
+    this.day = day;
+    let month = this._stringToMonth(inputDate[0]);
+
+    let inputFrom = this._from.split(" ");
+    let inputTo = this._to.split(" ");
+    if (inputFrom[1] == "PM") {
+      this._from = parseInt(inputFrom[0]) + 12;
+    } else {
+      this._from = parseInt(inputFrom[0]);
+    }
+    if (inputTo[1] == "PM") {
+      this._to = parseInt(inputTo[0]) + 12;
+    } else {
+      this._to = parseInt(inputTo[0]);
+    }
+
+    this.fromDate = new Date(currDate.getYear(), month, this.day, this._from);
+    this.toDate = new Date(currDate.getYear(), month, this.day, this._to);
+  }
+
   _createPractice() {
-    let container = document.createElement("div");
-    container.classList.add("loggedPractice");
+    let templatePractice = document.querySelector(".template");
+    let newPractice = templatePractice.cloneNode(true);
+    newPractice.classList.remove("template");
+    newPractice.classList.add("loggedPractice");
 
-    let paragraphHeader = document.createElement("h4");
-    container.append(paragraphHeader);
-    paragraphHeader.innerHTML = "Logged Practice Session:"
+    newPractice.querySelector("#practiceDate").textContent = "Day: " + String(this.fromDate.getMonth() + 1) + "/" + String(this.day);
+    newPractice.querySelector("#practiceDuration").textContent = "Duration: " + String(this.toDate.getHours() - this.fromDate.getHours())  + " Hrs";
+    newPractice.querySelector("#practiceLocation").textContent = "Location: " + this.location;
 
-    let paragraph = document.createElement("p");
-    container.append(paragraph);
-    paragraph.innerHTML = "On " + this.day + ", you practiced from " + this.timeFrom + " to " + this.timeTo + " at " + this.location + ".";
+    return newPractice;
+  }
 
-    let editButton = document.createElement("button");
-    editButton.textContent = "Edit";
-    container.append(editButton);
-
-    return container;
+  _stringToMonth(str) {
+    return new Date(Date.parse(str +" 1, 2022")).getMonth()+1;
   }
 }

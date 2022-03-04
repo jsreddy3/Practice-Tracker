@@ -87,6 +87,15 @@
   text-align: center;
 }
 
+#loggedPractices {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.template {
+  display: none;
+}
+
 body {
   margin: 0;
   font-family: sans-serif;

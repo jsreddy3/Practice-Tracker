@@ -16,7 +16,7 @@ const apiRequest = async (method, path, body = null) => {
     });
   }
   if (res.status !== 200) {
-    let httpErr = new HTTPError(res.status, res.error);
+    let httpErr = new Error(res.status, res.error);
   }
   let data = await res.json();
   return data;

@@ -23,8 +23,71 @@ const initApi = async app => {
 api.use(bodyParser.json());
 api.use(cors());
 
-api.get("/", (req, res) => {
-  res.json({ message: "Hello, world!" });
-});
+api.use("/users/:id", async (req, res, next) => {
+  let id = req.params.id;
+  let user = await Users.findOne({ id });
+  if (!user) {
+    res.status(404).json({ error: `No user with ID ${id}`});
+    return;
+  }
+
+  res.locals.user = user;
+  next();
+})
+
+api.get("/users/:id", async (req, res) => {
+  let user = res.locals.user;
+  delete user._id;
+  res.json(user);
+})
+
+api.post("/users", async (req, res) => {
+  let userObj = {
+    id: req.body.id,
+    practices: []
+  }
+
+  await Users.insertOne(userObj);
+  delete userObj._id;
+  res.json(userObj);
+})
+
+api.post("/users/:id/practices", async (req, res) => {
+  let user = res.locals.user;
+  await Practices.insertOne( {
+    user: req.id,
+    location: req.location,
+    day: req.day,
+    from: req.from,
+    to: req.to
+  });
+
+  req.json( {success: true});
+})
+
+api.get("/users/:id/practices", async (req, res) => {
+  let user = res.locals.user;
+  let practices = await Posts.find( {id: { $in: [user] } } ).toArray();
+
+  let practiceArray = [];
+  for (let practice of practices) {
+    let practiceUser = await Users.findOne( {id: post.userId } );
+    practiceArray.push({
+      user: post.userId,
+      location: practiceUser.location,
+      day: practiceUser.day,
+      from: practiceUser.from,
+      to: practiceUser.to
+    });
+  }
+  feedArr.sort((a, b) => {
+    let a_day = parseInt(a.day);
+    let b_day = parseInt(b.day);
+    if (a_day == b_day) {
+      //let newA =
+      let a_hour = parseInt(a.from);
+    }
+  })
+})
 
 export default initApi;

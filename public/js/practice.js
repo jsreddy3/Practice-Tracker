@@ -9,7 +9,7 @@ export default class Practice {
 
     this.fromDate = null;
     this.toDate = null;
-    this._convertToDate();
+    this.convertToDate();
   }
 
   addToDom(parent) {
@@ -17,7 +17,7 @@ export default class Practice {
     parent.append(item);
   }
 
-  _convertToDate(timeFrom, timeTo) {
+  convertToDate(timeFrom, timeTo) {
     let currDate = new Date();
 
     let inputDate = this.day.split(" ");

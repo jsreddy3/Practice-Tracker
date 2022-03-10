@@ -9,7 +9,7 @@ const api = express.Router();
 let conn = null;
 let db = null;
 let Users = null;
-let Posts = null;
+let Practices = null;
 
 const initApi = async app => {
   app.set("json spaces", 2);
@@ -17,7 +17,7 @@ const initApi = async app => {
   conn = await MongoClient.connect("mongodb://localhost");
   db = conn.db("practice_tracker");
   Users = db.collection("users");
-  Posts = db.collection("practices");
+  Practices = db.collection("practices");
 };
 
 api.use(bodyParser.json());
@@ -54,15 +54,16 @@ api.post("/users", async (req, res) => {
 
 api.post("/users/:id/practices", async (req, res) => {
   let user = res.locals.user;
+  console.log(req);
   await Practices.insertOne( {
-    user: req.id,
-    location: req.location,
-    day: req.day,
-    from: req.from,
-    to: req.to
+    user: req.body.id,
+    location: req.body.location,
+    day: req.body.day,
+    from: req.body.from,
+    to: req.body.to
   });
 
-  req.json( {success: true});
+  res.json( {success: true});
 })
 
 api.get("/users/:id/practices", async (req, res) => {

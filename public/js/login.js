@@ -5,6 +5,7 @@ const loginPractice = async () => {
   event.preventDefault();
   let loginForm = document.querySelector("#login");
   let user = await User.loadOrCreate(loginForm.userid.value);
+  sessionStorage.setItem("user", user.id);
   window.location.replace("practicelog.html");
 }
 

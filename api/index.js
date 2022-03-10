@@ -54,7 +54,6 @@ api.post("/users", async (req, res) => {
 
 api.post("/users/:id/practices", async (req, res) => {
   let user = res.locals.user;
-  console.log(req);
   await Practices.insertOne( {
     user: req.body.id,
     location: req.body.location,
@@ -68,7 +67,7 @@ api.post("/users/:id/practices", async (req, res) => {
 
 api.get("/users/:id/practices", async (req, res) => {
   let user = res.locals.user;
-  let practices = await Posts.find( {id: { $in: [user] } } ).toArray();
+  let practices = await Practices.find( {id: { $in: [user] } } ).toArray();
 
   let practiceArray = [];
   for (let practice of practices) {
@@ -81,7 +80,7 @@ api.get("/users/:id/practices", async (req, res) => {
       to: practiceUser.to
     });
   }
-  feedArr.sort((a, b) => {
+  practiceArray.sort((a, b) => {
     let a_day = parseInt(a.day);
     let b_day = parseInt(b.day);
     if (a_day == b_day) {
@@ -89,6 +88,7 @@ api.get("/users/:id/practices", async (req, res) => {
       let a_hour = parseInt(a.from);
     }
   })
+  res.json({practices: practiceArray});
 })
 
 export default initApi;

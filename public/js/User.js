@@ -19,4 +19,9 @@ export default class User {
   async addPractice(data) {
     await apiRequest("POST", "/users/" + this.id + "/practices", data);
   }
+
+  async getPractices() {
+    let practices = await apiRequest("GET", "/users/" + this.id + "/practices");
+    return practices["practices"];
+  }
 }

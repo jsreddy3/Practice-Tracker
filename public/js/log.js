@@ -12,12 +12,14 @@ class Log {
     this._practiceForm = document.querySelector("#createPractice");
     this._practiceForm.addEventListener("submit", this._onCreatePractice);
     this._addUsername();
+
   }
 
   async _addUsername() {
     let user_name = sessionStorage.getItem("user")
     document.querySelector("#username").innerText = user_name;
-    this._user = await User.loadOrCreate(user_name)
+    this._user = await User.loadOrCreate(user_name);
+    this._loadPractices();
   }
 
   async _onCreatePractice() {
@@ -33,6 +35,12 @@ class Log {
     let newPractice = new Practice(practiceData);
     let logSection = document.querySelector("#loggedPractices");
     newPractice.addToDom(logSection);
+    this._loadPractices();
+  }
+
+  async _loadPractices() {
+    let practices = await this._user.getPractices();
+    console.log(practices);
   }
 }
 

@@ -33,12 +33,14 @@ class Log {
     }
     await this._user.addPractice(practiceData);
     let newPractice = new Practice(practiceData);
-    let logSection = document.querySelector("#loggedPractices");
-    newPractice.addToDom(logSection);
     this._loadPractices();
   }
 
   async _loadPractices() {
+    let logSection = document.querySelector("#loggedPractices");
+    while (logSection.firstChild) {
+      logSection.removeChild(logSection.firstChild);
+    }
     let practices = await this._user.getPractices();
     console.log(practices);
     for (let practice of practices) {

@@ -41,6 +41,18 @@ class Log {
   async _loadPractices() {
     let practices = await this._user.getPractices();
     console.log(practices);
+    for (let practice of practices) {
+      let practiceData = {
+        id: practice.user,
+        day: practice.day,
+        from: practice.from,
+        to: practice.to,
+        location: practice.location
+      }
+      let newPractice = new Practice(practiceData);
+      let logSection = document.querySelector("#loggedPractices");
+      newPractice.addToDom(logSection);
+    }
   }
 }
 

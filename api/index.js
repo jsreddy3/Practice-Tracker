@@ -99,10 +99,10 @@ api.get("/users/:id/practices", async (req, res) => {
       if (b_pm == "PM") {
         b_time += 12;
       }
-      return a_time - b_time;
+      return b_time - a_time;
     }
 
-    return a_date.getTime() - b_date.getTime();
+    return b_date.getTime() - a_date.getTime();
   })
   res.json({practices: practiceArray});
 })

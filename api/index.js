@@ -66,29 +66,49 @@ api.post("/users/:id/practices", async (req, res) => {
 })
 
 api.get("/users/:id/practices", async (req, res) => {
-  let user = res.locals.user;
-  let practices = await Practices.find( {id: { $in: [user] } } ).toArray();
-
+  let userName = res.locals.user;
+  let practices = await (Practices.find( {user: { $in: [userName.id] } } ).toArray());
   let practiceArray = [];
   for (let practice of practices) {
-    let practiceUser = await Users.findOne( {id: post.userId } );
     practiceArray.push({
-      user: post.userId,
-      location: practiceUser.location,
-      day: practiceUser.day,
-      from: practiceUser.from,
-      to: practiceUser.to
+      user: practice.user,
+      location: practice.location,
+      day: practice.day,
+      from: practice.from,
+      to: practice.to
     });
   }
   practiceArray.sort((a, b) => {
-    let a_day = parseInt(a.day);
-    let b_day = parseInt(b.day);
-    if (a_day == b_day) {
-      //let newA =
-      let a_hour = parseInt(a.from);
+    let currDate = new Date();
+    let a_month = stringToMonth(a.day.split(" ")[0]);
+    let a_day = a.day.split(" ")[1];
+    let b_month = stringToMonth(b.day.split(" ")[0]);
+    let b_day = b.day.split(" ")[1];
+
+    let a_date = new Date(currDate.getYear(), a_month, parseInt(a_day));
+    let b_date = new Date(currDate.getYear(), b_month, parseInt(b_day));
+
+    if (a_month == b_month && a_day == b_day) {
+      let a_time = parseInt(a.from.split(" ")[0]);
+      let a_pm = a.from.split(" ")[1];
+      let b_time = parseInt(b.from.split(" ")[0]);
+      let b_pm = b.from.split(" ")[1];
+      if (a_pm == "PM") {
+        a_time += 12;
+      }
+      if (b_pm == "PM") {
+        b_time += 12;
+      }
+      return a_time - b_time;
     }
+
+    return a_date.getTime() - b_date.getTime();
   })
   res.json({practices: practiceArray});
 })
+
+function stringToMonth(str) {
+  return new Date(Date.parse(str +" 1, 2022")).getMonth();
+}
 
 export default initApi;

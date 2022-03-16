@@ -5,9 +5,11 @@ class Log {
   constructor() {
     this._user = null;
     this._practiceForm = null;
+
     this._onCreatePractice = this._onCreatePractice.bind(this);
     this._onAddPractice = this._onAddPractice.bind(this);
     this._onLogOut = this._onLogOut.bind(this);
+    this._onInstrument = this._onInstrument.bind(this);
   }
 
   setup() {
@@ -19,14 +21,21 @@ class Log {
 
     let logOutButton = document.querySelector("#logOut");
     logOutButton.addEventListener("click", this._onLogOut);
+
+    let instrumentButton = document.querySelector("#instrument");
+    instrumentButton.addEventListener("click", this._onInstrument);
     this._addUsername();
   }
 
   async _addUsername() {
-    let user_name = sessionStorage.getItem("user")
+    let user_name = sessionStorage.getItem("user");
     document.querySelector("#username").innerText = user_name;
     this._user = await User.loadOrCreate(user_name);
     this._loadPractices();
+  }
+
+  _onInstrument() {
+    window.location.replace("instruments.html");
   }
 
   _onLogOut() {

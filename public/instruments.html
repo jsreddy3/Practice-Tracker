@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <!-- These two lines provide automatic page and style reloading when files change -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/lib/client/updater.js" defer></script>
+
+    <link rel="stylesheet" href="css/instruments.css">
+
+    <script type="module" src="js/instruments.js"></script>
+  </head>
+  <body>
+    <header id="title">
+      <h1>Instruments</h1>
+      <h4>Choose the instrument you play!<br>Click update to have it loaded on your practice log page.</h4>
+    </header>
+    <main>
+      <div id="firstThree">
+        <div>
+          <input type="radio" name="instrumentChoice" id="piano">
+          <label for="piano">
+            <img src="res/piano.jpg" width = 150px height = 150px>
+          </label>
+        </div>
+        <div>
+          <input type="radio" name="instrumentChoice" id="cello">
+          <label for="cello">
+            <img src="res/cello.jpg" width = 150px height = 150px>
+          </label>
+        </div>
+        <div>
+          <input type="radio" name="instrumentChoice" id="violin">
+          <label for="violin">
+            <img src="res/violin.jpg" width = 150px height = 150px>
+          </label>
+        </div>
+      </div>
+      <div id="secondThree">
+        <div>
+          <input type="radio" name="instrumentChoice" id="guitar">
+          <label for="guitar">
+            <img src="res/guitar.jpg" width = 150px height = 150px>
+          </label>
+        </div>
+        <div>
+          <input type="radio" name="instrumentChoice" id="flute">
+          <label for="flute">
+            <img src="res/flute.jpg" width = 150px height = 150px>
+          </label>
+        </div>
+        <div>
+          <input type="radio" name="instrumentChoice" id="viola">
+          <label for="viola">
+            <img src="res/viola.jpg" width = 150px height = 150px>
+          </label>
+        </div>
+      </div>
+    </main>
+    <div id="lowerButtons">
+      <button id="backToLog">Back To Practice Log</button>
+      <button id="update">Update</button>
+    </div>
+  </body>
+</html>

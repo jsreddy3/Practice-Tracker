@@ -22,6 +22,10 @@ class Log {
     this._loadPractices();
   }
 
+  async _onAddPractice() {
+    
+  }
+
   async _onCreatePractice() {
     event.preventDefault();
     let practiceData = {

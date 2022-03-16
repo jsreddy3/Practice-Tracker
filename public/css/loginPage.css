@@ -1,0 +1,23 @@
+input {
+  border: 2px solid black;
+}
+
+input:focus {
+  border: 2px solid blue;
+}
+
+li {
+  margin-top: 5px;
+}
+
+#top {
+  margin-top: 15px;
+}
+
+body > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  align-items: center;
+}

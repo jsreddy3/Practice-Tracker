@@ -33,6 +33,10 @@
   flex-grow: 1;
 }
 
+#sidenav #learn p {
+  color: black;
+}
+
 .buttonSelected {
   border: solid;
   border-color: red;
@@ -60,6 +64,12 @@
 #log #createPractice * {
   margin-left: 5%;
   margin-right: 30%;
+}
+
+#log #createPractice p {
+  margin-top: -15px;
+  font-size: 12px;
+  margin-bottom: 20px;
 }
 
 #log #addLog {

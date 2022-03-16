@@ -49,13 +49,28 @@ export default class Practice {
     newPractice.classList.add("loggedPractice");
 
     newPractice.querySelector("#practiceDate").textContent = "Day: " + String(this.fromDate.getMonth() + 1) + "/" + String(this.day);
-    newPractice.querySelector("#practiceDuration").textContent = "Duration: " + String(this.toDate.getHours() - this.fromDate.getHours())  + " Hrs";
+    newPractice.querySelector("#practiceDuration").textContent = "Length: " + String(this.toDate.getHours() - this.fromDate.getHours())  + " Hrs";
     newPractice.querySelector("#practiceLocation").textContent = "Location: " + this.location;
+    newPractice.querySelector("#practiceStart").textContent = "Start: " + this._convertToString(this.fromDate.getHours());
 
     return newPractice;
   }
 
   _stringToMonth(str) {
     return new Date(Date.parse(str +" 1, 2022")).getMonth();
+  }
+
+  _convertToString(hour) {
+    if (hour >= 24 || hour == 0) {
+      hour = "12 AM";
+    } else if (hour > 12) {
+      hour = (hour - 12) + " PM";
+    } else if (hour == 12) {
+      hour += " PM";
+    } else {
+      hour += " AM";
+    }
+
+    return hour;
   }
 }

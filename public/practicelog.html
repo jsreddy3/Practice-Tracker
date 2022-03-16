@@ -28,20 +28,23 @@
       </div>
       <div id="learn">
         <h3 id="username">Username</h3>
+        <img src="res/piano.jpg" width = 100px height = 100px>
+        <p>Change your instrument with the Instrument button!</p>
       </div>
     </section>
     <main id="log">
       <h1 id="practiceTitle">Practice Logger</h1>
       <form id="createPractice">
         <h3>Create Practice</h3>
+        <p>Template practice can be created using Add Practice button</p>
         <label for="day">Day:</label>
-        <input type="text" name="day" required>
+        <input type="text" name="day" placeholder="Format must be like: March 2" required>
         <label for="from">From:</label>
-        <input type="text" name="from" required>
+        <input type="text" name="from" placeholder="Format must be like: 4 PM" required>
         <label for="to">To:</label>
-        <input type="text" name="to" required>
+        <input type="text" name="to" placeholder="Format must be like: 5 PM" required>
         <label for="location">Location:</label>
-        <input type="text" name="location" required>
+        <input type="text" name="location" placeholder="Any reasonable input acceptable" required>
         <button type="submit" id="addLog">Add</button>
       </form>
       <section id="prevPractices">
@@ -53,6 +56,7 @@
 
     <article class="template">
       <h3 id="practiceDate">Template Date</h3>
+      <p id="practiceStart">Template Start</p>
       <p id="practiceDuration">Template Duration</p>
       <p id="practiceLocation">Template Location</p>
     </article>

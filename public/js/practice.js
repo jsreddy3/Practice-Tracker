@@ -9,7 +9,7 @@ export default class Practice {
 
     this.fromDate = null;
     this.toDate = null;
-    this.convertToDate();
+    this._convertToDate();
   }
 
   addToDom(parent) {
@@ -17,7 +17,7 @@ export default class Practice {
     parent.append(item);
   }
 
-  convertToDate(timeFrom, timeTo) {
+  _convertToDate(timeFrom, timeTo) {
     let currDate = new Date();
 
     let inputDate = this.day.split(" ");
@@ -32,7 +32,7 @@ export default class Practice {
     } else {
       this._from = parseInt(inputFrom[0]);
     }
-    if (inputTo[1] == "PM") {
+    if (inputTo[1] == "PM" && inputTo[0] != "12") {
       this._to = parseInt(inputTo[0]) + 12;
     } else {
       this._to = parseInt(inputTo[0]);

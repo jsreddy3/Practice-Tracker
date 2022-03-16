@@ -7,12 +7,19 @@
     <!-- These two lines provide automatic page and style reloading when files change -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="/lib/client/updater.js" defer></script>
+    <link rel="stylesheet" href="css/loginPage.css">
+
+    <script type="module" src="js/login.js"></script>
   </head>
   <body>
-    <a href="practicelog.html">Practice Log Page</a>
-    <br>
-    <a href="dashboard.html">Dashboard Page (To Be Completed)</a>
-    <br>
-    <a href="login.html">Login Page</a>
+    <div id="blue_box">
+      <h2>Practice Tracker Login</h2>
+      <form id="login">
+        <input name="userid" placeholder="User ID">
+        <button type="submit" name="login">Login</button>
+      </form>
+      <li id="top"> If you have an account, your practices will be pre-loaded!</li>
+      <li> If you don't, an account will be created for you.</li>
+    </div>
   </body>
 </html>

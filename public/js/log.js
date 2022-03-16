@@ -6,13 +6,20 @@ class Log {
     this._user = null;
     this._practiceForm = null;
     this._onCreatePractice = this._onCreatePractice.bind(this);
+    this._onAddPractice = this._onAddPractice.bind(this);
+    this._onLogOut = this._onLogOut.bind(this);
   }
 
   setup() {
     this._practiceForm = document.querySelector("#createPractice");
     this._practiceForm.addEventListener("submit", this._onCreatePractice);
-    this._addUsername();
 
+    let addPracticeButton = document.querySelector("#practiceLog");
+    addPracticeButton.addEventListener("click", this._onAddPractice);
+
+    let logOutButton = document.querySelector("#logOut");
+    logOutButton.addEventListener("click", this._onLogOut);
+    this._addUsername();
   }
 
   async _addUsername() {
@@ -22,8 +29,43 @@ class Log {
     this._loadPractices();
   }
 
-  async _onAddPractice() {
-    
+  _onLogOut() {
+    window.location.replace("index.html");
+  }
+
+  _convertToString(hour) {
+    if (hour >= 24 || hour == 0) {
+      hour = "12 AM";
+    } else if (hour > 12) {
+      hour = (hour - 12) + " PM";
+    } else if (hour == 12) {
+      hour += " PM";
+    } else {
+      hour += " AM";
+    }
+
+    return hour;
+  }
+
+  // create default practice using current hour, one hour after current hour
+  _onAddPractice() {
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    let currDate = new Date();
+    this._practiceForm.day.value = months[currDate.getMonth()] + " " + currDate.getDate();
+    let hourFrom = currDate.getHours();
+    // avoid edge cases involving midnight, as date objects don't handle this nicely
+    if (hourFrom == 23) {
+      hourFrom--;
+    }
+    if (hourFrom == 0) {
+      hourFrom++;
+    }
+    let hourTo = hourFrom + 1;
+
+    this._practiceForm.from.value = this._convertToString(hourFrom);
+    this._practiceForm.to.value = this._convertToString(hourTo);
+    this._practiceForm.location.value = "Home";
   }
 
   async _onCreatePractice() {
@@ -38,6 +80,7 @@ class Log {
     await this._user.addPractice(practiceData);
     let newPractice = new Practice(practiceData);
     this._loadPractices();
+    this._practiceForm.reset();
   }
 
   async _loadPractices() {
@@ -46,7 +89,6 @@ class Log {
       logSection.removeChild(logSection.firstChild);
     }
     let practices = await this._user.getPractices();
-    console.log(practices);
     for (let practice of practices) {
       let practiceData = {
         id: practice.user,

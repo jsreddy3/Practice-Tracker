@@ -64,7 +64,7 @@ api.post("/users/:id/practices", async (req, res) => {
     to: req.body.to
   });
 
-  res.json( {success: true});
+  res.json( {success: true} );
 })
 
 api.post("/users/:id/instrument", async (req, res) => {
@@ -78,6 +78,7 @@ api.post("/users/:id/instrument", async (req, res) => {
 api.patch("/users/:id/instrument", async (req, res) => {
   let user = res.locals.user;
   await Instruments.replaceOne({ user: user.id}, {user: user.id, instrument: req.body.instrument});
+  res.json( {success: true} );
 })
 
 api.get("/users/:id/instrument", async(req, res) => {

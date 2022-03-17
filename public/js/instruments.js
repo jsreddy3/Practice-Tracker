@@ -30,6 +30,7 @@ class InstrumentChoicePage {
         await apiRequest("PATCH", "/users/" + this._user + "/instrument", {instrument: instrument.id});
       }
     }
+    window.location.replace("practicelog.html");
   }
 
   _onReturn() {

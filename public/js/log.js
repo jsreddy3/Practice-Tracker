@@ -5,6 +5,7 @@ class Log {
   constructor() {
     this._user = null;
     this._practiceForm = null;
+    this._userInstrument = null;
 
     this._onCreatePractice = this._onCreatePractice.bind(this);
     this._onAddPractice = this._onAddPractice.bind(this);
@@ -13,7 +14,7 @@ class Log {
     this._loadPracitces = this._loadPractices.bind(this);
   }
 
-  setup() {
+  async setup() {
     this._practiceForm = document.querySelector("#createPractice");
     this._practiceForm.addEventListener("submit", this._onCreatePractice);
 
@@ -23,9 +24,14 @@ class Log {
     let logOutButton = document.querySelector("#logOut");
     logOutButton.addEventListener("click", this._onLogOut);
 
+    await this._addUsername();
+    this._userInstrument = await this._user.getInstrument();
+    let imgSrc = "res/" + this._userInstrument.instrument + ".jpg";
+
     let instrumentButton = document.querySelector("#instrument");
     instrumentButton.addEventListener("click", this._onInstrument);
-    this._addUsername();
+    let instrumentImage = document.querySelector("img");
+    instrumentImage.src = imgSrc;
   }
 
   async _addUsername() {
@@ -36,6 +42,7 @@ class Log {
   }
 
   _onInstrument() {
+    sessionStorage.setItem("instrument", this._userInstrument.instrument);
     window.location.replace("instruments.html");
   }
 

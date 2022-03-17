@@ -10,6 +10,7 @@ let conn = null;
 let db = null;
 let Users = null;
 let Practices = null;
+let Instruments = null;
 
 const initApi = async app => {
   app.set("json spaces", 2);
@@ -18,6 +19,7 @@ const initApi = async app => {
   db = conn.db("practice_tracker");
   Users = db.collection("users");
   Practices = db.collection("practices");
+  Instruments = db.collection("instruments");
 };
 
 api.use(bodyParser.json());
@@ -63,6 +65,31 @@ api.post("/users/:id/practices", async (req, res) => {
   });
 
   res.json( {success: true});
+})
+
+api.post("/users/:id/instrument", async (req, res) => {
+  let user = res.locals.user;
+  await Instruments.insertOne( {
+    user: req.body.id,
+    instrument: req.body.instrument
+  });
+})
+
+api.patch("/users/:id/instrument", async (req, res) => {
+  let user = res.locals.user;
+  await Instruments.replaceOne({ user: user.id}, {user: user.id, instrument: req.body.instrument});
+})
+
+api.get("/users/:id/instrument", async(req, res) => {
+  let user = res.locals.user;
+  let instrumentObj = await Instruments.findOne( {
+    user: user.id
+  });
+  if (instrumentObj) {
+    res.json( {instrument: instrumentObj.instrument} );
+  } else {
+    res.status(400).json("could not find practice associated with user.");
+  }
 })
 
 api.get("/users/:id/practices", async (req, res) => {
@@ -120,7 +147,7 @@ api.delete("/practices", async (req, res) => {
     await Practices.remove(reqBody);
     res.json({ success: true });
   } else {
-    res.status(404).json({error: "could not find practice" });
+    res.status(400).json({error: "could not find practice" });
   }
 })
 

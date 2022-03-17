@@ -5,8 +5,10 @@ class InstrumentChoicePage {
   constructor() {
     this._user = null;
     this._updateButton = null;
+    this._selectedInstrument = null;
 
     this._onReturn = this._onReturn.bind(this);
+    this._onUpdate = this._onUpdate.bind(this);
   }
 
   setup() {
@@ -15,10 +17,33 @@ class InstrumentChoicePage {
 
     let returnButton = document.querySelector("#backToLog");
     returnButton.addEventListener("click", this._onReturn);
+
+    this._user = sessionStorage.getItem("user");
+    console.log(this._user);
+    this._selectedInstrument = sessionStorage.getItem("instrument");
+    this._highlightSelected();
+  }
+
+  async _onUpdate() {
+    let instruments = document.querySelectorAll("input");
+    for (let instrument of instruments) {
+      if (instrument.checked) {
+        await apiRequest("PATCH", "/users/" + this._user + "/instrument", {instrument: instrument.id});
+      }
+    }
   }
 
   _onReturn() {
     window.location.replace("practicelog.html");
+  }
+
+  _highlightSelected() {
+    let instruments = document.querySelectorAll("input");
+    for (let instrument of instruments) {
+      if (instrument.id == this._selectedInstrument) {
+        instrument.checked = true;
+      }
+    }
   }
 }
 

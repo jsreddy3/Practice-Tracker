@@ -60,8 +60,6 @@ export default class Practice {
       to: this._convertToString(this.toDate.getHours())
     };
 
-    console.log(this._practiceObj);
-
     newPractice.querySelector("#practiceDate").textContent = "Day: " + String(this.fromDate.getMonth() + 1) + "/" + String(this.day);
     newPractice.querySelector("#practiceDuration").textContent = "Length: " + String(this.toDate.getHours() - this.fromDate.getHours())  + " Hrs";
     newPractice.querySelector("#practiceLocation").textContent = "Location: " + this._practiceObj.location;

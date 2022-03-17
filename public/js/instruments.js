@@ -19,7 +19,6 @@ class InstrumentChoicePage {
     returnButton.addEventListener("click", this._onReturn);
 
     this._user = sessionStorage.getItem("user");
-    console.log(this._user);
     this._selectedInstrument = sessionStorage.getItem("instrument");
     this._highlightSelected();
   }

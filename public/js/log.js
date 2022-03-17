@@ -10,6 +10,7 @@ class Log {
     this._onAddPractice = this._onAddPractice.bind(this);
     this._onLogOut = this._onLogOut.bind(this);
     this._onInstrument = this._onInstrument.bind(this);
+    this._loadPracitces = this._loadPractices.bind(this);
   }
 
   setup() {

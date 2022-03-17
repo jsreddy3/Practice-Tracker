@@ -1,15 +1,19 @@
 export default class Practice {
   constructor(data) {
-    this.user = data.user;
+    this.user = data.id;
     this.location = data.location;
     this.day = data.day;
 
     this._from = data.from;
     this._to = data.to;
-
     this.fromDate = null;
     this.toDate = null;
     this._convertToDate();
+    this._stringMonth = data.day;
+
+    this._practiceElement = null;
+    this._practiceObj = null;
+    this._onDelete = this._onDelete.bind(this);
   }
 
   addToDom(parent) {
@@ -48,12 +52,29 @@ export default class Practice {
     newPractice.classList.remove("template");
     newPractice.classList.add("loggedPractice");
 
+    this._practiceObj = {
+      user: this.user,
+      location: this.location,
+      day: this._stringMonth,
+      from: this._convertToString(this.fromDate.getHours()),
+      to: this._convertToString(this.toDate.getHours())
+    };
+
+    console.log(this._practiceObj);
+
     newPractice.querySelector("#practiceDate").textContent = "Day: " + String(this.fromDate.getMonth() + 1) + "/" + String(this.day);
     newPractice.querySelector("#practiceDuration").textContent = "Length: " + String(this.toDate.getHours() - this.fromDate.getHours())  + " Hrs";
-    newPractice.querySelector("#practiceLocation").textContent = "Location: " + this.location;
-    newPractice.querySelector("#practiceStart").textContent = "Start: " + this._convertToString(this.fromDate.getHours());
+    newPractice.querySelector("#practiceLocation").textContent = "Location: " + this._practiceObj.location;
+    newPractice.querySelector("#practiceStart").textContent = "Start: " + this._practiceObj.from;
+    this._practiceElement = newPractice;
+    newPractice.querySelector("button").addEventListener("click", this._onDelete);
 
     return newPractice;
+  }
+
+  async _onDelete() {
+    await apiRequest("DELETE", "/practices", this._practiceObj);
+    location.reload();
   }
 
   _stringToMonth(str) {

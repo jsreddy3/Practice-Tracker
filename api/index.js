@@ -107,6 +107,23 @@ api.get("/users/:id/practices", async (req, res) => {
   res.json({practices: practiceArray});
 })
 
+api.delete("/practices", async (req, res) => {
+  let reqBody = {
+    user: req.body.user,
+    location: req.body.location,
+    day: req.body.day,
+    from: req.body.from,
+    to: req.body.to
+  }
+  let practice = await Practices.findOne(reqBody);
+  if (practice) {
+    await Practices.remove(reqBody);
+    res.json({ success: true });
+  } else {
+    res.status(404).json({error: "could not find practice" });
+  }
+})
+
 function stringToMonth(str) {
   return new Date(Date.parse(str +" 1, 2022")).getMonth();
 }

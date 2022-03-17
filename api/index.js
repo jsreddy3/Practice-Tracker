@@ -73,6 +73,8 @@ api.post("/users/:id/instrument", async (req, res) => {
     user: req.body.id,
     instrument: req.body.instrument
   });
+
+  res.json( {success: true} );
 })
 
 api.patch("/users/:id/instrument", async (req, res) => {
